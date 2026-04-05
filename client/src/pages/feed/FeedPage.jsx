@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useGetFollowingFeedQuery, useGetCommunitiesFeedQuery } from '../../store/api/feedApi'
 import { useGetTrendingQuery } from '../../store/api/contentApi'
-import { socket } from '../../utils/socket'
 import FeedItem from '../../components/feed/FeedItem'
 import ContentGrid from '../../components/content/ContentGrid'
 
@@ -187,7 +186,7 @@ export default function FeedPage() {
               key={t.id}
               className={`feed-tab-btn ${tab === t.id ? 'active' : ''}`}
               onClick={() => handleTabClick(t)}
-              aria-selected={tab === t.id}
+              aria-current={tab === t.id ? 'true' : undefined}
             >
               <t.Icon />
               {t.label}
