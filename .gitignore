@@ -1,0 +1,12 @@
+node_modules/
+client/node_modules/
+client/build/
+.env
+*.pem
+*.key
+secrets/
+credentials.json
+private-config.js
+.DS_Store
+.claude/
+.firecrawl/

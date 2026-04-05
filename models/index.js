@@ -1,0 +1,15 @@
+const User = require('./User')
+const ContentItem = require('./ContentItem')
+const Review = require('./Review')
+const Rating = require('./Rating')
+const Community = require('./Community')
+const Post = require('./Post')
+const Watchlist = require('./Watchlist')
+const Notification = require('./Notification')
+const List = require('./List')
+const ListRating = require('./ListRating')
+const Activity = require('./Activity')
+const Reaction = require('./Reaction')
+const WatchParty = require('./WatchParty')
+
+module.exports = { User, ContentItem, Review, Rating, Community, Post, Watchlist, Notification, List, ListRating, Activity, Reaction, WatchParty }
