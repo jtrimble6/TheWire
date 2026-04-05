@@ -33,9 +33,13 @@ const importRoutes = require('./routes/API/importAPI/import')
 
 const app = express()
 const server = http.createServer(app)
+const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
+  ? [process.env.CLIENT_URL].filter(Boolean)
+  : ['http://localhost:3000']
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? false : 'http://localhost:3000',
+    origin: ALLOWED_ORIGINS,
     credentials: true
   }
 })
@@ -52,7 +56,7 @@ mongoose.connect(MONGODB_URI)
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(morgan('dev'))
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? false : 'http://localhost:3000',
+  origin: ALLOWED_ORIGINS,
   credentials: true
 }))
 
