@@ -37,11 +37,15 @@ const ALLOWED_ORIGINS = [
   process.env.CLIENT_URL
 ].filter(Boolean)
 
+console.log('CORS allowed origins:', ALLOWED_ORIGINS)
+
+const originFn = (origin, callback) => {
+  if (!origin || ALLOWED_ORIGINS.includes(origin)) return callback(null, true)
+  callback(new Error(`CORS blocked: ${origin}`))
+}
+
 const io = new Server(server, {
-  cors: {
-    origin: ALLOWED_ORIGINS,
-    credentials: true
-  }
+  cors: { origin: originFn, credentials: true }
 })
 
 const PORT = process.env.PORT || 3001
@@ -53,7 +57,7 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error('MongoDB connection error:', err))
 
 // CORS must come before helmet
-const corsOptions = { origin: ALLOWED_ORIGINS, credentials: true }
+const corsOptions = { origin: originFn, credentials: true }
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
