@@ -7,7 +7,6 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
-const path = require('path')
 const http = require('http')
 const { Server } = require('socket.io')
 
@@ -123,14 +122,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => console.log('Socket disconnected:', socket.id))
 })
-
-// Serve React build in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client', 'build')))
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  })
-}
 
 // Export io for use in controllers
 app.set('io', io)
