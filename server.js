@@ -32,10 +32,13 @@ const watchPartyRoutes = require('./routes/API/watchPartyAPI/watchParty')
 const importRoutes = require('./routes/API/importAPI/import')
 
 const app = express()
+// Trust Render's load balancer so req.secure works correctly for HTTPS cookies
+app.set('trust proxy', 1)
 const server = http.createServer(app)
 const ALLOWED_ORIGINS = [
   'http://localhost:3000',
-  process.env.CLIENT_URL
+  process.env.CLIENT_URL,
+  process.env.RENDER_EXTERNAL_URL
 ].filter(Boolean)
 
 console.log('CORS allowed origins:', ALLOWED_ORIGINS)
