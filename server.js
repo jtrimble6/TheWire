@@ -53,13 +53,14 @@ mongoose.connect(MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err))
 
+// CORS must come before helmet
+const corsOptions = { origin: ALLOWED_ORIGINS, credentials: true }
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
+
 // Security & logging
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(morgan('dev'))
-app.use(cors({
-  origin: ALLOWED_ORIGINS,
-  credentials: true
-}))
 
 // Body parsing
 app.use(express.json())
