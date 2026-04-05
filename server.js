@@ -33,9 +33,10 @@ const importRoutes = require('./routes/API/importAPI/import')
 
 const app = express()
 const server = http.createServer(app)
-const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
-  ? [process.env.CLIENT_URL].filter(Boolean)
-  : ['http://localhost:3000']
+const ALLOWED_ORIGINS = [
+  'http://localhost:3000',
+  process.env.CLIENT_URL
+].filter(Boolean)
 
 const io = new Server(server, {
   cors: {
